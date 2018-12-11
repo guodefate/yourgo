@@ -1,24 +1,19 @@
 <template>
-  <div class="search-container">
-    <div class="search">
+  <div class="search">
+    <div class="search-input">
       <i class="iconfont icon-sousuo"></i>
-      <input
-        type="text"
-        placeholder="请输入你想要的商品"
-        @confirm="search"
-        v-model.trim="key"
-      >
+      <input type="text" placeholder="请输入你想要的商品" @confirm="search" v-model.trim="key">
       <button>取消</button>
     </div>
-    <div class="history">
-      <div class="top">
-        <text>历史搜索</text>
+    <div class="search-history">
+      <div class="history-title">
+        <text> 历史搜索</text>
         <i class="iconfont icon-shanchu"> </i>
       </div>
-      <div class="bottom">
-        <div class="item" v-for="(item, index) in historyList" :key="index">{{item}}</div>
-        <!-- <div class="item">大米</div>
-        <div class="item">糯米</div> -->
+      <div class="history-content">
+        <div class="item" v-for="(item, index) in historyList" :key="index">
+          {{item}}
+        </div>
       </div>
     </div>
   </div>
@@ -27,21 +22,20 @@
 export default {
   data: function() {
     return {
+      //搜索内容
+      key: "",
       // 搜索历史
-      historyList: [],
-      //   搜索内容
-      key: ""
+      historyList: []
     };
   },
   methods: {
     search() {
-        // console.log(this.key);
-        this.historyList.push(this.key);
+      // console.log(this.key);
+      this.historyList.push(this.key);
     }
   },
   onShow() {
-    // console.log('显示了')
-    // 读取缓存
+    console.log("页面显示");
     wx.getStorage({
       key: "history",
       success: res => {
@@ -66,9 +60,9 @@ export default {
   }
 };
 </script>
-<style lang="scss">
-.search-container {
-  .search {
+<style lang='scss'>
+.search {
+  .search-input {
     height: 120rpx;
     background-color: #eeeeee;
     padding: 0 20rpx;
@@ -78,35 +72,38 @@ export default {
     align-items: center;
     .iconfont {
       position: absolute;
-      left: 40rpx;
       top: 50%;
       transform: translateY(-50%);
+      left: 40rpx;
+      color: #ccc;
     }
     input {
       padding-left: 70rpx;
+      background-color: white;
       font-size: 26rpx;
       flex: 1;
-      background: white;
       margin-right: 16rpx;
       height: 60rpx;
     }
     button {
       width: 160rpx;
       height: 60rpx;
-      border-radius: 4rpx;
-      border: 1rpx solid gray;
+      border: 1px solid gray;
       text-align: center;
       line-height: 60rpx;
     }
   }
-  .history {
+  .search-history {
     padding: 28rpx 20rpx 0;
-    .top {
+    .history-title {
       display: flex;
       justify-content: space-between;
       font-size: 26rpx;
+      .iconfont {
+        color: #ccc;
+      }
     }
-    .bottom {
+    .history-content {
       display: flex;
       flex-wrap: wrap;
       padding-top: 30rpx;

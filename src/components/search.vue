@@ -1,10 +1,19 @@
 <template>
-    <div class="nav">
-        <i class="iconfont icon-sousuo"></i>
-        <input type="text" placeholder="搜索">
-    </div>
+  <div class="nav">
+    <i class="iconfont icon-sousuo"></i>
+    <input type="text" placeholder="搜索" @click="search">
+  </div>
 </template>
 <script>
+export default {
+  methods: {
+    search() {
+      wx.navigateTo({
+        url: "/pages/search/main"
+      });
+    }
+  }
+};
 </script>
 <style lang="scss">
 $uRed: #ff2d4a;
